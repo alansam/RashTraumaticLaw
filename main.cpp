@@ -18,6 +18,7 @@ int main(int argc, char const * argv[]) {
     "Whatever",
     "whatever!",
     "whatever",
+    "whatever next",
   };
 
   for (std::string tst : tests) {
