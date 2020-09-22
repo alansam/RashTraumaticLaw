@@ -18,9 +18,11 @@ int main(int argc, char const * argv[]) {
     "Whatever",
     "whatever!",
     "whatever",
+    "what\tever",
     "whatever next",
   };
 
+  std::cout << "std::for_each()" << std::endl;
   for (std::string tst : tests) {
     bool lc = true;
 
@@ -39,11 +41,43 @@ int main(int argc, char const * argv[]) {
   }
   std::putchar('\n');
 
+  std::cout << "std::find_if()" << std::endl;
   for (std::string tst : tests) {
     auto fi = std::find_if(tst.begin(), tst.end(), [](char c_) {
       return !std::islower(c_);
     });
     bool lc = (fi != tst.end()) ? false : true;
+
+    std::cout << std::setw(20)
+              << tst
+              << ": "
+              << std::boolalpha
+              << lc
+              << std::endl;
+  }
+  std::putchar('\n');
+
+  std::cout << "std::find_if_not()" << std::endl;
+  for (std::string tst : tests) {
+    auto fi = std::find_if_not(tst.begin(), tst.end(), [](char c_) {
+      return std::islower(c_);
+    });
+    bool lc = (fi != tst.end()) ? false : true;
+
+    std::cout << std::setw(20)
+              << tst
+              << ": "
+              << std::boolalpha
+              << lc
+              << std::endl;
+  }
+  std::putchar('\n');
+
+  std::cout << "std::all_of()" << std::endl;
+  for (std::string tst : tests) {
+    auto lc = std::all_of(tst.begin(), tst.end(), [](char c_) {
+      return std::islower(c_);
+    });
 
     std::cout << std::setw(20)
               << tst
