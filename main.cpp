@@ -22,6 +22,15 @@ int main(int argc, char const * argv[]) {
     "whatever next",
   };
 
+  auto pfn = [](auto & tst, auto & lc) {
+    std::cout << std::setw(20)
+              << tst
+              << ": "
+              << std::boolalpha
+              << lc
+              << std::endl;
+  };
+
   //  for_each()
   std::cout << "std::for_each()" << std::endl;
   for (std::string tst : tests) {
@@ -34,15 +43,9 @@ int main(int argc, char const * argv[]) {
 //        std::cout << std::boolalpha << lc << ' ' << l_ << std::endl;
       });
 
-    std::cout << std::setw(20)
-              << tst
-              << ": "
-              << std::boolalpha
-              << lc
-              << std::endl;
+    pfn(tst, lc);
   }
   std::putchar('\n');
-
   //  find_if()
   std::cout << "std::find_if()" << std::endl;
   for (std::string tst : tests) {
@@ -52,12 +55,7 @@ int main(int argc, char const * argv[]) {
       });
     bool lc = (fi != tst.end()) ? false : true;
 
-    std::cout << std::setw(20)
-              << tst
-              << ": "
-              << std::boolalpha
-              << lc
-              << std::endl;
+    pfn(tst, lc);
   }
   std::putchar('\n');
 
@@ -70,12 +68,7 @@ int main(int argc, char const * argv[]) {
       });
     bool lc = (fi != tst.end()) ? false : true;
 
-    std::cout << std::setw(20)
-              << tst
-              << ": "
-              << std::boolalpha
-              << lc
-              << std::endl;
+    pfn(tst, lc);
   }
   std::putchar('\n');
 
@@ -87,12 +80,7 @@ int main(int argc, char const * argv[]) {
         return std::islower(c_);
       });
 
-    std::cout << std::setw(20)
-              << tst
-              << ": "
-              << std::boolalpha
-              << lc
-              << std::endl;
+    pfn(tst, lc);
   }
   std::putchar('\n');
 
@@ -104,12 +92,7 @@ int main(int argc, char const * argv[]) {
       if(!(lc = std::islower(ch))) { break; }
     }
 
-    std::cout << std::setw(20)
-              << tst
-              << ": "
-              << std::boolalpha
-              << lc
-              << std::endl;
+    pfn(tst, lc);
   }
   std::putchar('\n');
 
@@ -122,31 +105,21 @@ int main(int argc, char const * argv[]) {
       if (!lc) { break; }
     }
 
-    std::cout << std::setw(20)
-              << tst
-              << ": "
-              << std::boolalpha
-              << lc
-              << std::endl;
+    pfn(tst, lc);
   }
   std::putchar('\n');
 
   //  do it all with lambdas
   std::cout << "do it all with lambdas" << std::endl;
   std::for_each(tests.begin(), tests.end(), 
-    [](auto tst) {
+    [&pfn](auto tst) {
       auto fi = std::find_if(tst.begin(), tst.end(),
         [](auto c_) {
           return !std::islower(c_);
         });
       auto lc = (fi != tst.end()) ? false : true;
 
-      std::cout << std::setw(20)
-                << tst
-                << ": "
-                << std::boolalpha
-                << lc
-                << std::endl;
+      pfn(tst, lc);
     });
   std::putchar('\n');
 
